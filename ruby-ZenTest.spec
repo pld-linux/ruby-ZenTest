@@ -1,4 +1,5 @@
 Summary:	Ruby Testing framework
+Summary(pl):	Szkielet do testów dla jêzyka Ruby
 Name:		ruby-ZenTest
 Version:	2.3.0
 Release:	1
@@ -21,17 +22,29 @@ that have slipped through the testing process. I've run it against my
 own software and found I missed a lot in a well tested package.
 Writing those tests found 4 bugs I had no idea existed.
 
+%description -l pl
+ZenTest skanuje cel oraz kod testów jednostkowych i pisze brakuj±cy
+kod w oparciu o proste regu³y nazywania, pozwalaj±c na du¿y szybsze
+XP. ZenTest dzia³a tylko z Rubym i Test::Unit.
+
+Dla potrzeb audytu ZenTest dostarcza ¶wietne ¶rodki znajdowania metod
+wy¶lizguj±cych siê z procesu testowania. Autor uruchamia³ je na
+w³asnym oprogramowaniu i znalaz³, ¿e wiele pomin±³ w dobrze
+przetestowanym pakiecie. Napisanie tych testów znalaz³o 4 b³êdy, o
+których istnieniu autor nie mia³ pojêcia.
+
 %prep
 %setup -q -n ZenTest-%{version}
 
 %build
 %{__make}
-find . -name '*.rb' | xargs perl -pi -e "s#local/bin/ruby#bin/ruby#"
 
+find . -name '*.rb' | xargs perl -pi -e "s#local/bin/ruby#bin/ruby#"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
+
 install ZenTest.rb $RPM_BUILD_ROOT%{_bindir}/ZenTest
 install unit_diff.rb $RPM_BUILD_ROOT%{_bindir}/unit_diff
 
