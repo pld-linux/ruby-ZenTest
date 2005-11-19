@@ -7,7 +7,8 @@ License:	GPL
 Group:		Development/Languages
 Source0:	http://rubyforge.org/frs/download.php/1944/ZenTest-%{version}.tar.gz
 # Source0-md5:	f94eed12075025c3e7090520b95e8eab
-BuildRequires:	perl-base
+BuildRequires:	ruby
+BuildRequires:	sed >= 4.0
 Requires:	ruby
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -35,11 +36,10 @@ których istnieniu autor nie mia³ pojêcia.
 
 %prep
 %setup -q -n ZenTest-%{version}
+find . -name '*.rb' | xargs sed -i -e '1s,#!.*local/bin/ruby#!%{_bindir}/ruby#'
 
 %build
 %{__make}
-
-find . -name '*.rb' | xargs perl -pi -e "s#local/bin/ruby#bin/ruby#"
 
 %install
 rm -rf $RPM_BUILD_ROOT
