@@ -2,14 +2,14 @@ Summary:	Ruby Testing framework
 Summary(pl):	Szkielet do testów dla jêzyka Ruby
 Name:		ruby-ZenTest
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Languages
 Source0:	http://rubyforge.org/frs/download.php/1944/ZenTest-%{version}.tar.gz
 # Source0-md5:	f94eed12075025c3e7090520b95e8eab
-BuildRequires:	ruby
+BuildRequires:	ruby-modules
 BuildRequires:	sed >= 4.0
-Requires:	ruby
+Requires:	ruby-modules
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
