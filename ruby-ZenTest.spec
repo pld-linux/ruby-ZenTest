@@ -10,7 +10,7 @@ Source0:	http://rubyforge.org/frs/download.php/1944/ZenTest-%{version}.tar.gz
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-modules
 BuildRequires:	sed >= 4.0
-%ruby_mod_ver_requires_eq
+%{?ruby_mod_ver_requires_eq}
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
