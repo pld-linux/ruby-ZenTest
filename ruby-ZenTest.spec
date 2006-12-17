@@ -1,14 +1,17 @@
 Summary:	Ruby Testing framework
 Summary(pl):	Szkielet do testów dla jêzyka Ruby
 Name:		ruby-ZenTest
-Version:	2.3.0
-Release:	2
+Version:	3.0.0
+Release:	1
 License:	GPL
 Group:		Development/Languages
-Source0:	http://rubyforge.org/frs/download.php/1944/ZenTest-%{version}.tar.gz
-# Source0-md5:	f94eed12075025c3e7090520b95e8eab
+Source0:	http://rubyforge.org/frs/download.php/9048/ZenTest-%{version}.tar.gz
+# Source0-md5:	cef297906ffad7e024737727df9ea0fe
+Patch0:	%{name}-nogems.patch
+URL: http://www.zenspider.com/ZSS/Products/ZenTest/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-modules
+BuildRequires:	rake
 BuildRequires:	sed >= 4.0
 %{?ruby_mod_ver_requires_eq}
 BuildArch:	noarch
@@ -37,17 +40,19 @@ których istnieniu autor nie mia³ pojêcia.
 
 %prep
 %setup -q -n ZenTest-%{version}
-find . -name '*.rb' | xargs sed -i -e '1s,#!.*local/bin/ruby#!%{_bindir}/ruby#'
+find . -name '*.rb' | xargs sed -i -e '1s,#!.*local/bin/ruby,#!%{_bindir}/ruby,'
+find bin -type f | xargs sed -i -e '1s,#!.*local/bin/ruby,#!%{_bindir}/ruby,'
+%patch0 -p1
 
 %build
-%{__make}
+rake
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{ruby_rubylibdir}}
 
-install ZenTest.rb $RPM_BUILD_ROOT%{_bindir}/ZenTest
-install unit_diff.rb $RPM_BUILD_ROOT%{_bindir}/unit_diff
+install bin/* $RPM_BUILD_ROOT%{_bindir}
+install lib/* $RPM_BUILD_ROOT%{ruby_rubylibdir}/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,3 +60,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/*
+%{ruby_rubylibdir}/*
