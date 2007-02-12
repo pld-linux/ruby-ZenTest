@@ -1,5 +1,5 @@
 Summary:	Ruby Testing framework
-Summary(pl.UTF-8):   Szkielet do testów dla języka Ruby
+Summary(pl.UTF-8):	Szkielet do testów dla języka Ruby
 Name:		ruby-ZenTest
 Version:	3.0.0
 Release:	1
